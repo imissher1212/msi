@@ -1,9 +1,7 @@
 #include <iostream>
-#include <vector>
-
 using namespace std;
 
-bool isSafe(int row, int col, vector<vector<int> >& board, int n) {
+bool isSafe(int row, int col, int board[10][10], int n) {
     for (int i = 0; i < col; i++) {
         if (board[row][i] == 1) {
             return false;
@@ -22,7 +20,7 @@ bool isSafe(int row, int col, vector<vector<int> >& board, int n) {
     return true;
 }
 
-bool solveNQueensUtil(vector<vector<int> >& board, int col, int n) {
+bool solveNQueensUtil(int board[10][10], int col, int n) {
     if (col >= n) {
         return true;
     }
@@ -38,9 +36,9 @@ bool solveNQueensUtil(vector<vector<int> >& board, int col, int n) {
     return false;
 }
 
-void printSolution(const vector<vector<int> >& board) {
-    for (int i = 0; i < board.size(); i++) {
-        for (int j = 0; j < board[i].size(); j++) {
+void printSolution(int board[10][10], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             cout << (board[i][j] ? "Q " : ". ");
         }
         cout << endl;
@@ -48,9 +46,9 @@ void printSolution(const vector<vector<int> >& board) {
 }
 
 void solveNQueens(int n) {
-    vector<vector<int> > board(n, vector<int>(n, 0));
+    int board[10][10] = {0};
     if (solveNQueensUtil(board, 0, n)) {
-        printSolution(board);
+        printSolution(board, n);
     } else {
         cout << "No solution exists." << endl;
     }
@@ -60,6 +58,10 @@ int main() {
     int n;
     cout << "Enter the number of queens: ";
     cin >> n;
+    if (n > 10) {
+        cout << "This implementation supports up to 10 queens only." << endl;
+        return 1;
+    }
     solveNQueens(n);
     return 0;
 }
