@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+void heapify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+void heapsort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(arr, n, i);
+    }
+
+    for (int i = n - 1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
+int main() {
+    int n;
+
+    cout << "Enter the number of students: ";
+    cin >> n;
+    int arr[n];
+    
+    cout << "Enter the marks obtained by each student: " << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "The marks scored by the students: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    heapsort(arr, n);
+
+    cout << "The minimum marks scored by the student: " << arr[0] << endl;
+    cout << "The maximum marks scored by the student: " << arr[n - 1] << endl;
+
+    return 0;
+}
